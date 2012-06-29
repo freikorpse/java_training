@@ -27,6 +27,7 @@ public class New {
 	}
 
 	// Examples:
+	@SuppressWarnings("unused")
 	public static void main(String[] args) {
 		Map<String, List<String>> sls = New.map();
 		List<String> ls = New.list();

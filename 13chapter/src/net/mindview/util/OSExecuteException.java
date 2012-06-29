@@ -2,5 +2,12 @@
 package net.mindview.util;
 
 public class OSExecuteException extends RuntimeException {
-  public OSExecuteException(String why) { super(why); }
-} ///:~
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+	public OSExecuteException(String why) {
+		super(why);
+	}
+} // /:~

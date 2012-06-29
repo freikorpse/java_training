@@ -5,6 +5,11 @@ package net.mindview.util;
 import java.util.*;
 
 public class MapData<K, V> extends LinkedHashMap<K, V> {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	// A single Pair Generator:
 	public MapData(Generator<Pair<K, V>> gen, int quantity) {
 		for (int i = 0; i < quantity; i++) {
