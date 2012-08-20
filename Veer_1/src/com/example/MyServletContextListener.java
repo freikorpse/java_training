@@ -9,33 +9,23 @@ import com.example.model.Dog;
 //@WebListener
 public class MyServletContextListener implements ServletContextListener {
 
-    /**
-     * Default constructor. 
-     */
-    public MyServletContextListener() {
-        // TODO Auto-generated constructor stub
-    }
-
+	static int count = 0;
+	
     public void contextInitialized(ServletContextEvent event) {
+    	count++;
         ServletContext sc = event.getServletContext();
         String breed = (String) sc.getInitParameter("breed");
     	Dog dog = new Dog(breed);
     	System.out.print("\007");
     	sc.setAttribute("dog", dog);
+    	sc.setAttribute("count", count);
     }
 
     public void contextDestroyed(ServletContextEvent event) {
         Object object = event.getServletContext().getAttribute("dog");
         Dog dog = Dog.class.cast(object);
-        System.err.println(dog.bark());
-        try {
-        	System.out.print("\007");
-			Thread.sleep(9000);
-		} catch (InterruptedException e) {
-			throw new RuntimeException("oops!");
-		} finally {
-			System.err.println("shut up");
-		}
+        System.out.print("<p> here is a dog: "+dog.getBreed()+" </p>");
+		System.err.println("Context has been destroyed.");
     }
 	
 }

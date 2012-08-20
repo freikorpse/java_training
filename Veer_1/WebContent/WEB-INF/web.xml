@@ -12,7 +12,7 @@
   	<servlet-class>com.example.web.ListenerTest</servlet-class>
   </servlet><servlet-mapping>
   	<servlet-name>DogTest</servlet-name>
-  	<url-pattern>/</url-pattern>
+  	<url-pattern>/oi</url-pattern>
   </servlet-mapping>
   <context-param>
   	<param-name>breed</param-name>
