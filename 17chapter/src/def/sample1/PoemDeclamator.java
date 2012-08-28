@@ -60,7 +60,7 @@ public class PoemDeclamator {
 			// Wait maximum of 1 second
 			// for MessageLoop thread
 			// to finish.
-			t.join(1000);
+			t.join(100);
 			if (((System.currentTimeMillis() - startTime) > patience)
 					&& t.isAlive()) {
 				threadMessage("Tired of waiting!");
