@@ -1,8 +1,5 @@
 package com.tictactoe;
 
-import java.util.LinkedHashSet;
-import java.util.Set;
-import java.util.Vector;
 
 public class Coordinate {
 	
@@ -33,22 +30,5 @@ public class Coordinate {
 		return val;
 	}
 	
-	public Vector<Coordinate> findLine (Boolean[][] field, int steps){
-		Vector<Coordinate> ret = new Vector<Coordinate>(steps, steps+2);
-		Directions[] dr = Directions.values();
 
-		for (int i=0;i<dr.length;i++){
-			Vector<Coordinate> vct = dr[i].getDirection(this, steps);
-			
-			
-			
-		}
-		
-		
-
-		
-		
-		
-		return ret;
-	}
 }

@@ -1,8 +1,6 @@
 package com.tictactoe;
 
-import java.util.Iterator;
 import java.util.Vector;
-
 
 public class Field {
 
@@ -31,7 +29,7 @@ public class Field {
 		}
 	}
 	
-	public int setAny(int x, int y, boolean set) throws IllegalCoordinateException, IllegalMoveException{
+	protected int setAny(int x, int y, boolean set) throws IllegalCoordinateException, IllegalMoveException{
 		checkSize(x);
 		checkSize(y);
 		
@@ -43,32 +41,52 @@ public class Field {
 			throw new IllegalMoveException();
 		}
 	}
-	
-	@Deprecated
+
 	public boolean isWin(){
 		for (int i=0;i<SIZE;i++){
 			for (int j=0;j<SIZE;j++){
-				
+				if (findLine(new Coordinate(i,j), 3)!=null)
+					return true;
 			}
 		}
-		
-		
-		
-		
 		return false;
 	}
 	
-	
-	public boolean isLineMatch(Vector<Coordinate> line){
-		Coordinate prev = line.get(0);
-		boolean isSame = true;
-		
-		Iterator<Coordinate> it = line.listIterator(1);
-		while (it.hasNext()){
-			isSame = prev.equals(it.next());
-		}
-		
-		return false;
-	}
+	public Vector<Coordinate> findLine (Coordinate start, int steps){
+		Directions[] dr = Directions.values();
 
+		for (int i=0;i<dr.length;i++){
+			Vector<Coordinate> vct = dr[i].getDirection(start, steps);
+			Boolean match = true;
+			for (int j=0;j<vct.size()-1;j++){
+				Boolean one = vct.get(j).getFieldValue(field);
+				Boolean two = vct.get(j+1).getFieldValue(field);
+				match = one==null?one==two:one!=two;
+				match = two==null?two==one:two!=one;
+				match = !match?one.equals(two):false;
+				if (!match){
+					continue;
+				} else {
+					return vct;
+				}		
+			}
+		}
+		return null;
+	}
+	
+	@Override
+	public String toString(){
+		StringBuffer ret = new StringBuffer();
+		for (int i=0;i<SIZE;i++){
+			ret.append("# ");
+			for (int j=0;j<SIZE;j++){
+				ret.append(" ");
+				ret.append(field[i][j]);
+				ret.append(" ");
+			}
+			ret.append(" #");
+			ret.append(System.lineSeparator());
+		}
+		return ret.toString();
+	}
 }
