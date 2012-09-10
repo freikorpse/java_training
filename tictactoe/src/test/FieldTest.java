@@ -1,8 +1,7 @@
 package test;
 
-import static org.junit.Assert.*;
-
-import java.util.Vector;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 
 import org.junit.Test;
 
@@ -11,51 +10,93 @@ import com.tictactoe.Field;
 import com.tictactoe.ICoordinate;
 import com.tictactoe.IllegalCoordinateException;
 import com.tictactoe.IllegalMoveException;
+import com.tictactoe.PointVector;
 
 public class FieldTest {
 
-	Vector<ICoordinate> line;
-	
+	PointVector<ICoordinate> line;
+
 	@Test
-	public void testIsWin() throws IllegalCoordinateException, IllegalMoveException {
+	public void testIsWinHor() throws IllegalCoordinateException, IllegalMoveException {
 		Field field = new Field();
 		field.setAny(new Coordinate(1,1),true);
-		//field.setAny(new Coordinate(1,2),true);
+		field.setAny(new Coordinate(1,2),true);
 		field.setAny(new Coordinate(1,3),true);
 		line = field.isWin();
 		assertTrue("is win  horizontal", line!=null);
-		
-		System.out.println(field.toString());
-		System.out.println(line.toString());
-		
-		/*field = new Field();
+		assertTrue("vector is horizontal", line.toString().contains("<X:1 Y:1>  <X:1 Y:2>  <X:1 Y:3>"));
+	}
+	
+	@Test
+	public void testIsNotWinHor() throws IllegalCoordinateException, IllegalMoveException {
+		Field field = new Field();
 		field.setAny(new Coordinate(1,1),true);
 		field.setAny(new Coordinate(1,2),false);
 		field.setAny(new Coordinate(1,3),true);
-		System.out.println(field.toString());
-		
-		assertTrue("is NOT win horizontal", !field.isWin());
-		
-		field = new Field();
+		line = field.isWin();
+		//System.out.println(field.toString());
+		//System.out.println(line.toString());
+		assertTrue("is NOT win horizontal", line==null);
+	}
+	
+	@Test
+	public void testIsNotWinCross() throws IllegalCoordinateException, IllegalMoveException{
+		Field field = new Field();
+		field.setAny(new Coordinate(1,1),true);
+		field.setAny(new Coordinate(2,2),false);
+		field.setAny(new Coordinate(3,3),true);
+		line = field.isWin();
+		//System.out.println(field.toString());
+		//System.out.println(line.toString());
+		assertTrue("is not Win Cross", line==null);
+	}
+	
+	@Test
+	public void testIsWinCross() throws IllegalCoordinateException, IllegalMoveException{
+		Field field = new Field();
 		field.setAny(new Coordinate(1,1),true);
 		field.setAny(new Coordinate(2,2),true);
 		field.setAny(new Coordinate(3,3),true);
-		System.out.println(field.toString());
-		
-		assertTrue("is win down-slash", field.isWin());
-		
-		
-		field = new Field();
-		field.setAny(new Coordinate(1,3),true);
-		field.setAny(new Coordinate(2,2),true);
-		field.setAny(new Coordinate(3,1),true);
-		
-		assertTrue("is win up-slash", field.isWin());*/
+		line = field.isWin();
+		//System.out.println(field.toString());
+		//System.out.println(line.toString());
+		assertTrue("is not Win Cross", line!=null);
+	}
+	
+	@Test
+	public void testWinMultiCross() throws IllegalCoordinateException, IllegalMoveException{
+		Field field = new Field(10);
+		field.setAny(new Coordinate(3,3),true);
+		field.setAny(new Coordinate(4,4),true);
+		field.setAny(new Coordinate(5,5),true);
+		line = field.isWin();
+		//System.out.println(field.toString());
+		//System.out.println(line.toString());
+		assertTrue("is Win Cross on multi field", line!=null);
 	}
 
 	@Test
-	public void testFindLine() {
-		fail("Not yet implemented");
+	public void testFindLinePos() throws IllegalCoordinateException, IllegalMoveException {
+		Field field = new Field(10);
+		field.setAny(new Coordinate(3,3),true);
+		field.setAny(new Coordinate(4,4),true);
+		field.setAny(new Coordinate(5,5),true);
+		System.out.println(field.toString());
+		line = field.findLine(new Coordinate(3,3), 3);
+		assertTrue("line is found", line!=null);
+		//System.out.println(line.toString());
+	}
+	
+	@Test
+	public void testFindLineNeg() throws IllegalCoordinateException, IllegalMoveException {
+		Field field = new Field(10);
+		field.setAny(new Coordinate(3,3),true);
+		field.setAny(new Coordinate(4,4),true);
+		field.setAny(new Coordinate(5,5),true);
+		System.out.println(field.toString());
+		line = field.findLine(new Coordinate(3,3), 4);
+		assertTrue("line is found", line==null);
+		//System.out.println(line.toString());
 	}
 
 	@Test
@@ -66,5 +107,4 @@ public class FieldTest {
 		assertTrue("first line was set: ", sf.contains("#  true  null  null  #"));
 		//System.out.println(field.toString());
 	}
-
 }
