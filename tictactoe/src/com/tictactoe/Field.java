@@ -4,13 +4,17 @@ import java.util.Vector;
 
 public class Field {
 
-	private final int SIZE = 3;
+	private int SIZE = 3;
 	private Boolean[][] field = new Boolean[SIZE][SIZE];
 	private int move = -1;
 	
 	public Field(){
 		reset();
-		this.move = 0;
+	}
+	
+	public Field(int size){
+		this.SIZE = size;
+		reset();	
 	}
 	
 	private final void reset(){
@@ -19,20 +23,20 @@ public class Field {
 				field[i][j]=null;
 			}
 		}
+		this.move = 0;
 	}
 	
-	private void checkSize(int val) throws IllegalCoordinateException{
-		if (val<0 || val>SIZE){
+	private boolean checkSize(ICoordinate point) {
+		return !(point.getX()<0 || point.getY()>SIZE);
+	}
+
+	
+	public int setAny(ICoordinate point, boolean set) throws IllegalCoordinateException, IllegalMoveException{
+		if (!checkSize(point)){
 			throw new IllegalCoordinateException();
-		} else {
-			return;
 		}
-	}
-	
-	public int setAny(int x, int y, boolean set) throws IllegalCoordinateException, IllegalMoveException{
-		checkSize(x);
-		checkSize(y);
-		
+		int x = point.getX();
+		int y = point.getY();
 		if (field[x-1][y-1]==null){
 			field[x-1][y-1] = set;
 			move++;
@@ -41,29 +45,44 @@ public class Field {
 			throw new IllegalMoveException();
 		}
 	}
+	
+	public Boolean getValue(ICoordinate point){
+		Boolean val = null;
+		int x= point.getX();
+		int y= point.getY();
+		try{
+			val = field[x][y];
+		} catch (ArrayIndexOutOfBoundsException e){
+			//TODO keep silence
+		}
+		return val;
+	}
 
-	public boolean isWin(){
+	public Vector<ICoordinate> isWin(){
 		for (int i=0;i<SIZE;i++){
 			for (int j=0;j<SIZE;j++){
-				if (findLine(new Coordinate(i,j), 3)!=null)
-					return true;
+				Vector<ICoordinate> ret = findLine(new Coordinate(i,j), 3);
+				if (ret!=null)
+					return ret;
 			}
 		}
-		return false;
+		return null;
 	}
 	
-	public Vector<Coordinate> findLine (Coordinate start, int steps){
+	protected Vector<ICoordinate> findLine (ICoordinate start, int steps){
 		Directions[] dr = Directions.values();
 
 		for (int i=0;i<dr.length;i++){
-			Vector<Coordinate> vct = dr[i].getDirection(start, steps);
-			Boolean match = true;
+			Vector<ICoordinate> vct = dr[i].getDirection(start, steps);
+			Boolean match = false;
 			for (int j=0;j<vct.size()-1;j++){
-				Boolean one = vct.get(j).getFieldValue(field);
-				Boolean two = vct.get(j+1).getFieldValue(field);
-				match = one==null?one==two:one!=two; //thank you Alex Gatskevich
-				match = two==null?two==one:two!=one;
-				match = !match?one.equals(two):false;
+				Boolean one = getValue(vct.get(j));
+				Boolean two = getValue(vct.get(j+1));
+				if (one==null || two==null){
+					match = (one==two);
+				} else {
+					match = (one.equals(two));
+				}
 				if (!match){
 					continue;
 				} else {
