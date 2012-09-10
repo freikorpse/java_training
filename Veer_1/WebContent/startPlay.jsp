@@ -8,6 +8,6 @@
 <title>Start play</title>
 </head>
 <body>
-<p>Helo, ${param.name}, let play for ${param.play}</p>
+<p>Hello, ${name}, let play for ${play}</p>
 </body>
 </html>

@@ -5,7 +5,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-<title>Please introduce yourself</title>
+<title>${title}</title>
 </head>
 <body>
 
@@ -14,9 +14,10 @@
 <p> enter name: <input type='text' name='name' value='' /></p>
 <p> I want play: </p>
 <ul>
-<li>play X: <input type="radio" value="true" name='play' /></li>
-<li>play Y: <input type="radio" value="false" name='play' /></li>
+<li>play X: <input type="radio" value="true" name='${link}' /></li>
+<li>play Y: <input type="radio" value="false" name='${link}' /></li>
 </ul>
+<input type='hidden' value='${token}' name='${link}' />
 <input type='submit' value='Submit' />
 </form>
 
