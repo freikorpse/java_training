@@ -1,7 +1,7 @@
 package com.tictactoe;
 
 
-public class Coordinate {
+public class Coordinate implements ICoordinate {
 	
 	private int x=-1;
 	private int y=-1;
@@ -18,17 +18,4 @@ public class Coordinate {
 	public int getY(){
 		return y;
 	}
-	
-	public Boolean getFieldValue(Boolean[][] field){
-		Boolean val = null;
-		
-		try{
-			val = field[x][y];
-		} catch (ArrayIndexOutOfBoundsException e){
-			//keep silence
-		}
-		return val;
-	}
-	
-
 }

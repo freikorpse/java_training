@@ -22,8 +22,8 @@ public enum Directions {
 		return y;
 	}
 	
-	public Vector<Coordinate> getDirection(Coordinate crd, int steps){
-		Vector<Coordinate> ret = new Vector<Coordinate>(steps, steps+2);
+	public Vector<ICoordinate> getDirection(ICoordinate crd, int steps){
+		Vector<ICoordinate> ret = new Vector<ICoordinate>(steps, steps+2);
 		ret.add(crd);
 		for (int i=1;i<steps;i++){
 			int k = ret.get(i-1).getX() + getXinc();
