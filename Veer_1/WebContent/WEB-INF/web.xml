@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<web-app id="WebApp_ID" version="3.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee" xmlns:web="http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd ">
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee" xmlns:web="http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd" id="WebApp_ID" version="3.0">
   <servlet>
     <servlet-name>Ch3 Beer</servlet-name>
     <servlet-class>com.example.web.BeerSelect</servlet-class>
@@ -7,20 +7,34 @@
   <servlet-mapping>
     <servlet-name>Ch3 Beer</servlet-name>
     <url-pattern>/SelectBeer.do</url-pattern>
-  </servlet-mapping><servlet>
-  	<servlet-name>DogTest</servlet-name>
-  	<servlet-class>com.example.web.ListenerTest</servlet-class>
-  </servlet><servlet-mapping>
-  	<servlet-name>DogTest</servlet-name>
-  	<url-pattern>/oi</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>DogTest</servlet-name>
+    <servlet-class>com.example.web.ListenerTest</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>DogTest</servlet-name>
+    <url-pattern>/oi</url-pattern>
   </servlet-mapping>
   <context-param>
-  	<param-name>breed</param-name>
-  	<param-value>Pudel</param-value>
+    <param-name>breed</param-name>
+    <param-value>Pudel</param-value>
   </context-param>
   <listener>
-  	<listener-class>com.example.MyServletContextListener</listener-class>
+    <listener-class>com.example.MyServletContextListener</listener-class>
   </listener>
-  
-  
+  <servlet>
+    <description></description>
+    <display-name>play</display-name>
+    <servlet-name>Start</servlet-name>
+    <servlet-class>com.example.web.Start</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>Start</servlet-name>
+    <url-pattern>/</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>Start</servlet-name>
+    <url-pattern>/play</url-pattern>
+  </servlet-mapping>
 </web-app>
