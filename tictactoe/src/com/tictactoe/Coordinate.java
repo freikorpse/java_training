@@ -31,4 +31,5 @@ public class Coordinate implements ICoordinate {
 	public String toString(){
 		return "<X:"+getX()+" Y:"+getY()+"> ";
 	}
+
 }

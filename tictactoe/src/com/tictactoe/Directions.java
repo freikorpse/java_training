@@ -22,6 +22,7 @@ public enum Directions {
 	
 	public PointVector<ICoordinate> getDirection(ICoordinate crd, int steps){
 		PointVector<ICoordinate> ret = new PointVector<ICoordinate>(steps, steps+2);
+
 		ret.add(crd);
 		for (int i=1;i<steps;i++){
 			int k = ret.get(i-1).getX() + getXinc();

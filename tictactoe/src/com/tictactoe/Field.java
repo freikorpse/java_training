@@ -3,7 +3,9 @@ package com.tictactoe;
 public class Field {
 
 	private int SIZE = 3;
+
 	private Boolean[][] field;
+
 	private int move = -1;
 
 	public Field() {
@@ -30,9 +32,9 @@ public class Field {
 				.getRealY() < 0 || point.getRealY() > SIZE));
 	}
 
-	public int setAny(ICoordinate point, boolean set)
-			throws IllegalCoordinateException, IllegalMoveException {
-		if (!checkSize(point)) {
+
+	public int setAny(ICoordinate point, boolean set) throws IllegalCoordinateException, IllegalMoveException{
+		if (!checkSize(point)){
 			throw new IllegalCoordinateException();
 		}
 		int x = point.getRealX();
@@ -45,7 +47,7 @@ public class Field {
 			throw new IllegalMoveException();
 		}
 	}
-
+	
 	public Boolean getValue(ICoordinate point) {
 		Boolean val = null;
 		int x = point.getRealX();
@@ -59,11 +61,14 @@ public class Field {
 	}
 
 	public PointVector<ICoordinate> isWin() {
-		for (int i = 0; i < SIZE; i++) {
-			for (int j = 0; j < SIZE; j++) {
-				PointVector<ICoordinate> ret = findLine(new Coordinate(i, j), 3);
-				if (ret != null)
-					return ret;
+		PointVector<ICoordinate> line = null;
+		
+		for (int i=1;i<=SIZE;i++){
+			for (int j=1;j<=SIZE;j++){
+				line = findLine(new Coordinate(i,j),3);
+				if (line!=null){
+					return line;
+				}
 			}
 		}
 		return null;
