@@ -11,6 +11,7 @@ import com.tictactoe.IllegalCoordinateException;
 import com.tictactoe.IllegalMoveException;
 import com.tictactoe.PointVector;
 
+//small comment
 public class FieldTest {
 
 	PointVector<ICoordinate> line;
